@@ -1,0 +1,65 @@
+
+#register {
+	padding: 20px 0px 60px 0px;
+}
+#contact {
+	padding: 60px 0px 60px 0px;
+}
+#register h3, #contact h3 {
+	color: #324750;
+	padding-top: 40px;
+	padding-bottom: 20px;
+}
+#register p, #contact p {
+	color: #F0A202;
+}
+#contact label {
+	width: 100%;
+}
+#contact textarea {
+	width: 100%;
+	height: 120px;
+}
+#register button, #contact button {
+	background-color: #fff;
+	color: #D95D39;
+	border-color: #D95D39;
+}
+#register button:hover, #contact button:hover {
+	background-color: #D95D39;
+	color: #fff;
+}
+
+
+.change_billing_profile input[type=radio] {
+  display: inline;
+  width: auto;
+  height: auto;
+}
+
+.change_billing_profile label {
+  display: block;
+  height: calc(2.25rem + 2px);
+}
+
+#card-element {
+	border: 1px solid #ced4da;
+	padding: 10px;
+	border-radius: 4px;
+	padding: 6px 12px;
+}
+
+
+input[type=checkbox] {
+  display: inline;
+  width: auto;
+  height: auto;
+}
+
+.discount_code label {
+  display: block;
+  height: calc(2.25rem + 2px);
+}
+input[type=checkbox] {
+    margin-right: 10px;
+}

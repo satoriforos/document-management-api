@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Adobe Fan Heiti Bold';
+    src: url('AdobeFanHeitiStd-Bold-Alphabetic.eot');
+    src: url('AdobeFanHeitiStd-Bold-Alphabetic.eot?#iefix') format('embedded-opentype'),
+        url('AdobeFanHeitiStd-Bold-Alphabetic.woff2') format('woff2'),
+        url('AdobeFanHeitiStd-Bold-Alphabetic.woff') format('woff'),
+        url('AdobeFanHeitiStd-Bold-Alphabetic.ttf') format('truetype'),
+        url('AdobeFanHeitiStd-Bold-Alphabetic.svg#AdobeFanHeitiStd-Bold-Alphabetic') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+

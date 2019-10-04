@@ -1,0 +1,22 @@
+#AuthType Basic
+#AuthName "Restricted"
+#AuthUserFile /var/www/fromdatawithlove.com/www/.htpasswd
+#Require valid-user
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule (.*) $1.py [L]
+
+#RewriteEngine on
+# Rewrite /foo/bar to /foo/bar.py
+#RewriteRule ^([^.?]+)$ %{REQUEST_URI}.py [L]
+
+# Return 404 if original request is /foo/bar.py
+#RewriteCond %{THE_REQUEST} "^[^ ]* .*?\.py[? ].*$"
+#RewriteRule .* - [L,R=404]
+
+#RewriteRule .py index.py [NC,R]
+
+# NOTE! FOR APACHE ON WINDOWS: Add [NC] to RewriteCond like this:
+# RewriteCond %{THE_REQUEST} "^[^ ]* .*?\.py[? ].*$" [NC]

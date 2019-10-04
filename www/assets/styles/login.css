@@ -1,0 +1,36 @@
+.form-signin {
+	width: auto;
+}
+
+#signin {
+	padding: 40px 0px 60px 0px;
+	text-align: center;
+}
+#signin h2 {
+	color: #324750;
+	padding-top: 20px;
+	padding-bottom: 40px;
+}
+#signin .form-control {
+	width: 100%;
+}
+#signin .btn {
+	width: 100%;
+}
+#signin form {
+	margin: 0px auto;
+	text-align: center;
+	max-width: 500px;
+}
+#signin input {
+	margin: 0px auto;
+}
+#signin .btn-primary {
+	color: #D95D39;
+	border-color: #D95D39;
+	background-color: #fff;
+}
+#signin .btn-primary:hover {
+	background-color: #D95D39;
+	color: #fff;
+}

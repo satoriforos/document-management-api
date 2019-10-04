@@ -1,0 +1,374 @@
+openapi: 3.0.1
+info:
+  description: This is the Document Siter data enrichment API.
+  version: 1.0.0
+  title: Document Siter API
+  termsOfService: 'https://example.com/terms'
+#  contact:
+#    email: apiteam@example.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  x-logo:
+    url: 'https://example.com/assets/images/logo-text.png'
+    backgroundColor: #343a40
+    altText: Document Siter
+servers:
+  - url: 'http://api.example.com/v1'
+components: 
+  securitySchemes:
+    Digest:
+      description: The Digest must be a base64 encoding of the API key.
+      type: apiKey
+      name: Authorization
+      in: header
+#tags:
+#  - name: jobtitles
+#    description: Determine a person's department and level of responsibility from their job title
+#    externalDocs:
+#      description: Find out more
+#      url: 'http://example.com'
+#  - name: person
+#    description: Determine probable data about a person including age, ethnicity, and gender
+#  - name: zip
+#    description: Operations about user
+#    externalDocs:
+#      description: Find out more
+#      url: 'http://example.com'
+paths:
+  /pdf/:
+    get:
+      description: Merge text with an existing PDF
+      operationId: addTextToPdf
+      parameters:      
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            name:
+              type: string
+              required: true
+              example: "pdf_filename"
+            requests:
+              type: object
+              properties:
+                text:
+                  type: string
+                  required: true
+                  example: "Hello world"
+                x:
+                  type: number
+                  required: true
+                  example: 130
+                y:
+                  type: number
+                  required: true
+                  example: 100
+                page_number:
+                  type: number
+                  required: true
+                  example: 1
+                font_name:
+                  type: string
+                  required: false
+                  example: "Arial"
+                font_size:
+                  type: number
+                  required: false
+                  example: 32
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              examples:
+                '0':
+                  value: |
+                    ""
+      security:
+        - Digest: []
+      x-code-samples:
+        - lang: 'curl'
+          source: |
+            curl -X GET -H "Authorization: Digest `echo -n $api_key|base64`" --data '{"name":"pdf_filename", "requests": [{"text": "Hello World, "x": 10, "y": 100, "page_number": 1}]}' https://api.example.com/v1/pdf/
+        - lang: 'python'
+          source: |
+            import requests
+            import base64
+            headers = {
+              "Authorization": "Digest {}".format(
+                base64.b64encode(api_key.encode("utf-8")).decode("utf-8")
+              )
+            }
+            url = "https://api.example.com/v1/pdf/"
+            params = {"name": "pdf_filename", "requests": [{"text": "Hello World, "x": 10, "y": 100, "page_number": 1}]}
+            response = requests.put(url, headers=headers, json=params)
+            print(response.json())
+        - lang: JQuery
+          source: |
+            $.ajaxSetup({
+              headers : {
+                'Authorization' : 'Digest ' + btoa(api_key)
+              }
+            });
+            url = "https://api.example.com/v1/pdf/"
+            params = {"name": "pdf_filename", "requests": [{"text": "Hello World, "x": 10, "y": 100, "page_number": 1}]}
+            $.ajax({
+                type: "GET",
+                url: "https://api.example.com/v1/pdf/",
+                data: params,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data){
+                  console.log(json);
+                },
+            });
+        - lang: PHP
+          source: |
+            $url = "https://api.example.com/v1/pdf/";
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
+            curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+              'Authorization: Digest ' . base64_encode($api_key),
+            ));
+            $data = {"name" => "pdf_filename", "requests" => array({"text" => "Hello World, "x" => 10, "y" => 100, "page_number" => 1})}
+            $data_string = json_encode($data);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string); 
+            $result = curl_exec($curl);
+            curl_close($curl);
+            print_r($result);
+    put:
+      description: Upload a PDF
+      operationId: uploadPdf
+      parameters:      
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            name:
+              type: string
+              required: true
+              example: "pdf_filename"
+            data:
+              type: string
+              required: true
+              decription: base64 encoded PDF data
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              examples:
+                '0':
+                  value: |
+                    ""
+      security:
+        - Digest: []
+      x-code-samples:
+        - lang: 'curl'
+          source: |
+            curl -X PUT -H "Authorization: Digest `echo -n $api_key|base64`" --data '{"name":"pdf_filename", "data": "..."}' https://api.example.com/v1/pdf/
+        - lang: 'python'
+          source: |
+            import requests
+            import base64
+            headers = {
+              "Authorization": "Digest {}".format(
+                base64.b64encode(api_key.encode("utf-8")).decode("utf-8")
+              )
+            }
+            url = "https://api.example.com/v1/pdf/"
+            params = {"name": "pdf_filename", "data": "..."}
+            response = requests.put(url, headers=headers, json=params)
+            print(response.json())
+        - lang: JQuery
+          source: |
+            $.ajaxSetup({
+              headers : {
+                'Authorization' : 'Digest ' + btoa(api_key)
+              }
+            });
+            params = {"name": "pdf_filename", "data": "..."}
+            $.ajax({
+                type: "PUT",
+                url: "https://api.example.com/v1/pdf/",
+                data: params,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data){
+                  console.log(json);
+                },
+            });
+        - lang: PHP
+          source: |
+            $url = "https://api.example.com/v1/pdf/";
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
+            curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+              'Authorization: Digest ' . base64_encode($api_key),
+            ));
+            $data = array("name" => "pdf_filename", "name" => "...");                                                                    
+            $data_string = json_encode($data);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string); 
+            $result = curl_exec($curl);
+            curl_close($curl);
+            print_r($result);
+    post:
+      description: Upload a PDF
+      operationId: replacePdf
+      parameters:      
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            name:
+              type: string
+              required: true
+              example: "pdf_filename"
+            data:
+              type: string
+              required: true
+              decription: base64 encoded PDF data
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              examples:
+                '0':
+                  value: |
+                    ""
+      security:
+        - Digest: []
+      x-code-samples:
+        - lang: 'curl'
+          source: |
+            curl -X POST -H "Authorization: Digest `echo -n $api_key|base64`" --data '{"name":"pdf_filename", "data": "..."}' https://api.example.com/v1/pdf/
+        - lang: 'python'
+          source: |
+            import requests
+            import base64
+            headers = {
+              "Authorization": "Digest {}".format(
+                base64.b64encode(api_key.encode("utf-8")).decode("utf-8")
+              )
+            }
+            url = "https://api.example.com/v1/pdf/"
+            params = {"name": "pdf_filename", "data": "..."}
+            response = requests.post(url, headers=headers, json=params)
+            print(response.json())
+        - lang: JQuery
+          source: |
+            $.ajaxSetup({
+              headers : {
+                'Authorization' : 'Digest ' + btoa(api_key)
+              }
+            });
+            params = {"name": "pdf_filename", "data": "..."}
+            $.ajax({
+                type: "POST",
+                url: "https://api.example.com/v1/pdf/",
+                data: params,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data){
+                  console.log(json);
+                },
+            });
+        - lang: PHP
+          source: |
+            $url = "https://api.example.com/v1/pdf/";
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+              'Authorization: Digest ' . base64_encode($api_key),
+            ));
+            $data = array("name" => "pdf_filename", "data": "...");                                                                    
+            $data_string = json_encode($data);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string); 
+            $result = curl_exec($curl);
+            curl_close($curl);
+            print_r($result);
+    delete:
+      description: Delete PDF
+      operationId: deletePdf
+      parameters:      
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            name:
+              type: string
+              required: true
+              example: "pdf_filename"
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              examples:
+                '0':
+                  value: |
+                    ""
+      security:
+        - Digest: []
+      x-code-samples:
+        - lang: 'curl'
+          source: |
+            curl -X DELETE -H "Authorization: Digest `echo -n $api_key|base64`" --data '{"name":"pdf_filename"}' https://api.example.com/v1/pdf/
+        - lang: 'python'
+          source: |
+            import requests
+            import base64
+            headers = {
+              "Authorization": "Digest {}".format(
+                base64.b64encode(api_key.encode("utf-8")).decode("utf-8")
+              )
+            }
+            url = "https://api.example.com/v1/pdf/"
+            params = {"name": "pdf_filename"}
+            response = requests.delete(url, headers=headers, json=params)
+            print(response.json())
+        - lang: JQuery
+          source: |
+            $.ajaxSetup({
+              headers : {
+                'Authorization' : 'Digest ' + btoa(api_key)
+              }
+            });
+            params = {"name": "pdf_filename"}
+            $.ajax({
+                type: "DELETE",
+                url: "https://api.example.com/v1/pdf/",
+                data: params,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data){
+                  console.log(json);
+                },
+            });
+        - lang: PHP
+          source: |
+            $url = "https://api.example.com/v1/pdf/";
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+            curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+              'Authorization: Digest ' . base64_encode($api_key),
+            ));
+            $data = array("name" => "pdf_filename");                                                                    
+            $data_string = json_encode($data);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string); 
+            $result = curl_exec($curl);
+            curl_close($curl);
+            print_r($result);
+externalDocs:
+  description: Find out more about Document Siter
+  url: 'http://example.com'
